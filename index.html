@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jack Gallagher</title>
+    <style>
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Tahoma, 'Segoe UI', Geneva, sans-serif;
+            background-color: #fcfcfc;
+            color: #222222;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        header h1 {
+            font-weight: 600;
+            font-size: 3.5rem;
+            margin-bottom: 0.3em;
+            letter-spacing: -0.02em;
+            color: #121212;
+        }
+
+        header h2 {
+            font-weight: 300;
+            font-size: 1.35rem;
+            color: #555555;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.04em;
+            min-height: 1.7em;
+            white-space: nowrap;
+            border-right: 2px solid #007acc;
+            padding-right: 2px;
+            overflow: hidden;
+            display: inline-block;
+            font-family: Tahoma, 'Segoe UI', Geneva, sans-serif;
+
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        nav a {
+            position: relative;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            color: #555555;
+            text-decoration: none;
+            letter-spacing: 0.12em;
+            padding-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #007acc;
+            transition: width 0.3s ease;
+        }
+        nav a:hover,
+        nav a:focus {
+            color: #007acc;
+            outline: none;
+        }
+        nav a:hover::after,
+        nav a:focus::after {
+            width: 100%;
+        }
+
+        footer {
+            text-align: center;
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            border-top: 1px solid #e2e2e2;
+            padding: 1rem 0;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.7rem;
+            }
+            nav {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Jack Gallagher</h1>
+    <h2 id="typing"></h2>
+    <nav>
+        <a href="about.html" >ABOUT</a>
+        <a href="experience.html" >EXPERIENCE</a>
+        <a href="research.html" >RESEARCH</a>
+        <a href="projects.html" >PROJECTS</a>
+    </nav>
+</header>
+<footer>
+    &copy; 2025 Jack Gallagher 
+</footer>
+
+<script>
+    const titles = [
+        "Information Scientist",
+        "Microprocessor Engineer",
+        "Hardware Technician",
+        "Eagle Scout",
+    ];
+
+    const typingElement = document.getElementById('typing');
+    let titleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 50;
+    let pauseDuration = 1500;
+
+    function type() {
+        const currentTitle = titles[titleIndex];
+        if (!isDeleting) {
+            // typing
+            typingElement.textContent = currentTitle.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === currentTitle.length) {
+                // pause at full text
+                isDeleting = true;
+                setTimeout(type, pauseDuration);
+            } else {
+                setTimeout(type, typingSpeed);
+            }
+        } else {
+            // deleting
+            typingElement.textContent = currentTitle.substring(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+                isDeleting = false;
+                titleIndex = (titleIndex + 1) % titles.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, typingSpeed / 2);
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        type();
+    });
+</script>
+</body>
+</html>
+
